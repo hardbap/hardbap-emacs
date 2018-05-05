@@ -1,0 +1,1 @@
+("~/code/hardbap-emacs/" "~/work/lebowski/" "~/work/sigwiz/" "~/go/src/github.com/AcadiaMicro/remora/" "~/work/muninn/" "~/work/huginn/" "~/work/doctor/" "~/work/heimdall/" "~/work/draupnir/" "~/work/hello/" "~/work/hello/hello/" "~/work/watchmen/")
