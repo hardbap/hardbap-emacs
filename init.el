@@ -85,6 +85,7 @@
 ; to be able to C-x without going all the way to 'x' which sucks on
 ; a Dvorak keyboard layout
 (keyboard-translate ?\C-t ?\C-x)
+(keyboard-translate ?\C-h ?\C-x)
 
 ; To be able to M-x without meta
 (global-set-key (kbd "C-x c") 'execute-extended-command)
