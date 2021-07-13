@@ -1,3 +1,6 @@
+; https://stackoverflow.com/questions/52521587/emacs-error-when-i-call-it-in-the-terminal
+(delete-file "~/Library/Colors/Emacs.clr")
+
 (setq inhibit-startup-message t)
 
 ; no scrollbar
@@ -64,6 +67,9 @@
 ; no newlines past EOF
 (setq next-line-add-newlines nil)
 
+; newline at EOF
+(setq require-final-newline t)
+
 ; apply syntax highlighting to all buffers
 (global-font-lock-mode t)
 
@@ -108,7 +114,7 @@
     '("marmalade" .
       "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives
-    '("melpa" . "http://melpa.milkbox.net/packages/") t)
+    '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
 (package-initialize)
 
 (require 'flymake-ruby)
@@ -150,6 +156,7 @@
 
 (add-to-list 'load-path "~/.emacs.d/vendor/")
 (require 'chruby)
+(require 'go-koans)
 
 (add-to-list 'auto-mode-alist
              '("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode))
@@ -166,7 +173,7 @@
     ("628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "8bb8a5b27776c39b3c7bf9da1e711ac794e4dc9d43e32a075d8aa72d6b5b3f59" default)))
  '(package-selected-packages
    (quote
-    (yasnippet-snippets yasnippet yaml-mode rspec-mode ace-window docker dockerfile-mode dumb-jump color-theme-sanityinc-tomorrow magit projectile-rails sourcerer-theme projectile grizzl flymake-ruby enh-ruby-mode))))
+    (expand-region go-mode yasnippet-snippets yasnippet yaml-mode rspec-mode ace-window docker dockerfile-mode dumb-jump color-theme-sanityinc-tomorrow magit projectile-rails sourcerer-theme projectile grizzl flymake-ruby enh-ruby-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -188,7 +195,7 @@
 (require 'smartparens-config)
 (smartparens-global-mode t)
 
-(set-frame-font "Hack 14" nil t)
+(set-frame-font "Hack 15" nil t)
 
 (add-hook 'after-init-hook 'global-company-mode)
 
@@ -197,6 +204,14 @@
 
 (eval-after-load 'company
   '(push 'company-robe company-backends))
+
+;;(add-hook 'before-save-hook 'gofmt-before-save)
+
+(add-hook 'go-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook 'gofmt-before-save)
+            (setq tab-width 8)
+            (setq indent-tabs-mode 1)))
 
 (yas-global-mode 1)
 ; start a server for usage with emacsclient
